@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio científico de Msc. Karen Lopez Riojas — Biotecnóloga, Bióloga Molecular e Investigadora especializada en NGS y Bioinformática." />
+  <title>MSc. Karen López Riojas — Biotecnóloga</title>
+
+  <!-- Google Fonts (cargadas también en CSS, esto pre-conecta para velocidad) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════════
+       NAVBAR
+  ══════════════════════════════════════════════ -->
+  <nav id="navbar" aria-label="Navegación principal">
+    <div class="container">
+      <div class="nav-inner">
+
+        <!-- Logo -->
+        <button class="nav-logo" data-scroll="hero" aria-label="Ir al inicio">
+          <div class="nav-logo-icon" aria-hidden="true">🧬</div>
+          <div>
+            <span class="nav-logo-name">Kare Lopez Riojas</span>
+            <span class="nav-logo-sub">Biotecnóloga</span>
+          </div>
+        </button>
+
+        <!-- Desktop links -->
+        <ul class="nav-links" role="list">
+          <li><button class="nav-link" data-scroll="about"    data-section="about">Sobre Mí</button></li>
+          <li><button class="nav-link" data-scroll="skills"   data-section="skills">Habilidades</button></li>
+          <li><button class="nav-link" data-scroll="research" data-section="research">Investigación</button></li>
+          <li><button class="nav-link" data-scroll="projects" data-section="projects">Proyectos</button></li>
+          <li><button class="nav-link" data-scroll="contact"  data-section="contact">Contacto</button></li>
+        </ul>
+
+        <!-- Desktop CTA -->
+        <button class="btn-primary nav-cta" data-scroll="contact">Contactar</button>
+
+        <!-- Mobile hamburger -->
+        <button id="hamburger" class="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" role="navigation" aria-label="Menú móvil">
+      <button class="nav-link" data-scroll="about">Sobre Mí</button>
+      <button class="nav-link" data-scroll="skills">Habilidades</button>
+      <button class="nav-link" data-scroll="research">Investigación</button>
+      <button class="nav-link" data-scroll="projects">Proyectos</button>
+      <button class="nav-link" data-scroll="contact">Contacto</button>
+      <button class="btn-primary" data-scroll="contact" style="margin-top:.5rem">Contactar</button>
+    </div>
+  </nav>
+
+
+  <!-- ══════════════════════════════════════════════
+       HERO
+  ══════════════════════════════════════════════ -->
+  <section id="hero" aria-label="Presentación">
+    <!-- Fondo decorativo -->
+    <div class="hero-bg-img" aria-hidden="true"></div>
+    <div class="hero-glow-overlay" aria-hidden="true"></div>
+
+    <!-- Canvas interactivo de ADN (mouse + clic) -->
+    <canvas id="dna-canvas" aria-hidden="true" title="Animación de doble hélice de ADN interactiva"></canvas>
+
+    <!-- Contenido -->
+    <div class="hero-content container">
+
+      <div class="hero-badge" aria-label="Etiqueta: Portfolio Científico">
+        <span aria-hidden="true">🔬</span>
+        <span class="hero-badge-text">Portfolio Científico</span>
+      </div>
+
+      <h1 class="hero-name-1">MSc. Karen</h1>
+      <h1 class="hero-name-2">López Riojas</h1>
+
+      <div class="hero-typewriter" aria-live="polite" aria-label="Especialidades">
+        <span class="typewriter-prefix">Especialista en</span>
+        <span id="typewriter-text" class="typewriter-text">Bióloga Molecular</span>
+        <span class="typewriter-cursor" aria-hidden="true">|</span>
+      </div>
+
+      <p class="hero-desc">
+        Biotecnóloga con Maestría en Biología Molecular e Ingeniería Genética.
+        Apasionada por descifrar el código de la vida a través de la bioinformática,
+        la bioestadística y la edición genómica de precisión.
+      </p>
+
+      <div class="hero-ctas">
+        <button class="btn-primary" data-scroll="research">Ver Investigaciones</button>
+        <button class="btn-outline" data-scroll="contact">Colaborar</button>
+      </div>
+
+      <p class="dna-sequence" aria-label="Secuencia de ADN decorativa">
+        5'—ATCGATCGATCGATCGATCGATCGATCGATCGATCGATCG—3'
+      </p>
+
+      <!-- Stats -->
+      <div class="hero-stats" role="list">
+        <div class="glass stat-card" role="listitem">
+          <div class="stat-value" style="color:#00ffcc;text-shadow:0 0 15px rgba(0,255,204,.6)">3+</div>
+          <div class="stat-label">Años de experiencia</div>
+        </div>
+        <div class="glass stat-card" role="listitem">
+          <div class="stat-value" style="color:#0088ff;text-shadow:0 0 15px rgba(0,136,255,.6)">1</div>
+          <div class="stat-label">Publicaciones científicas</div>
+        </div>
+        <!--
+        <div class="glass stat-card" role="listitem">
+          <div class="stat-value" style="color:#ff00aa;text-shadow:0 0 15px rgba(255,0,170,.6)">3</div>
+          <div class="stat-label">Patentes registradas</div>
+        </div>
+      -->
+        <div class="glass stat-card" role="listitem">
+          <div class="stat-value" style="color:#00e5ff;text-shadow:0 0 15px rgba(0,229,255,.6)">3+</div>
+          <div class="stat-label">Proyectos de investigación</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Indicador de scroll -->
+    <div class="scroll-hint" aria-hidden="true">
+      <p>Mueve el mouse · Haz clic</p>
+      <button class="scroll-arrow" data-scroll="about" aria-label="Bajar a Sobre Mí">↓</button>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════
+       ABOUT
+  ══════════════════════════════════════════════ -->
+  <section id="about" aria-label="Sobre mí">
+    <div class="about-dot-bg" aria-hidden="true"></div>
+    <div class="container" style="position:relative;z-index:1">
+
+      <div class="sec-lbl"><span>01 / Sobre Mí</span></div>
+
+      <div class="about-grid">
+
+        <!-- Portrait -->
+        <div class="fade-left">
+          <div class="portrait-container">
+            <div class="portrait-glow" aria-hidden="true"></div>
+            <div class="portrait-frame">
+              <img
+                src="https://i.pinimg.com/1200x/92/41/45/92414565f2e1c61e720bc748894b27d8.jpg"
+                alt="Msc. persona en el laboratorio"
+                loading="lazy"
+                width="600" height="700"
+              />
+              <div class="portrait-scanlines" aria-hidden="true"></div>
+            </div>
+            <div class="glass portrait-badge" aria-label="Estado: Investigación activa">
+              <span aria-hidden="true">🔬</span>
+              <div>
+                <div class="badge-status">Activa</div>
+                <div class="badge-sub">Investigación</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="fade-right">
+          <h2 class="about-heading">
+            Decodificando el <span class="accent">lenguaje</span> de la vida
+          </h2>
+          <p class="about-para">
+            Soy una biotecnóloga con una profunda pasión por entender los mecanismos moleculares
+            que rigen la vida. Mi formación en biología molecular e ingeniería genética me ha
+            permitido trabajar en la intersección entre la ciencia experimental y la computacional.
+          </p>
+          <p class="about-para">
+            Especializada secuenciación, bioinformática, análisis de secuencias de
+            nueva generación (NGS) y modelado estadístico de datos biológicos complejos.
+            Mi objetivo es traducir hallazgos moleculares en soluciones biotecnológicas
+            con impacto real en salud y agricultura.
+          </p>
+
+          <p class="edu-section-label">Formación Académica</p>
+          <div class="edu-list">
+            <div class="glass edu-item fade-up">
+              <div class="edu-icon" style="background:rgba(0,255,204,.12);border:1px solid rgba(0,255,204,.25)" aria-hidden="true">🎓</div>
+              <div>
+                <div class="edu-degree">Maestría en Ciencias en Biología Molecular e Ingeniería Genética</div>
+                <div class="edu-inst">Universidad Nacional Autónoma de Nuevo León</div>
+                <div class="edu-year" style="color:#00ffcc">2020 – 2022</div>
+              </div>
+            </div>
+            <div class="glass edu-item fade-up" style="transition-delay:.1s">
+              <div class="edu-icon" style="background:rgba(0,136,255,.12);border:1px solid rgba(0,136,255,.25)" aria-hidden="true">📖</div>
+              <div>
+                <div class="edu-degree">Licenciatura en Ingeniería en Biotecnología</div>
+                <div class="edu-inst">Instituto Politécnico Nacional</div>
+                <div class="edu-year" style="color:#0088ff">2015 – 2019</div>
+              </div>
+            </div>
+            <div class="glass edu-item fade-up" style="transition-delay:.2s">
+              <div class="edu-icon" style="background:rgba(255,0,170,.12);border:1px solid rgba(255,0,170,.25)" aria-hidden="true">🏆</div>
+              <div>
+                <div class="edu-degree">Certificación en Bioinformática y Bioestadística</div>
+                <div class="edu-inst">CEMP - Centro Empresarial de Másters y Posgrados Madrid/div>
+                <div class="edu-year" style="color:#ff00aa">2024</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════
+       SKILLS
+  ══════════════════════════════════════════════ -->
+  <section id="skills" aria-label="Habilidades y competencias">
+    <div class="skills-bg-img" aria-hidden="true"></div>
+    <div class="container" style="position:relative;z-index:1">
+
+      <div class="sec-lbl"><span>02 / Habilidades</span></div>
+      <h2 class="sec-title">Competencias <span class="accent">Científicas</span></h2>
+      <p class="sec-desc">
+        Una combinación única de habilidades experimentales y computacionales
+        que permiten abordar problemas biológicos complejos desde múltiples perspectivas.
+      </p>
+
+      <!-- Cards injected by scripts.js -->
+      <div id="skills-grid" class="skills-grid" role="list"></div>
+
+      <!-- Technology tags -->
+      <div class="tech-tags" role="list" aria-label="Tecnologías y plataformas">
+        <span class="tech-tag" role="listitem">Árboles filogenéticos</span>
+        <span class="tech-tag" role="listitem">NGS</span>
+        <span class="tech-tag" role="listitem">RNA-seq</span>
+        <span class="tech-tag" role="listitem">IGV</span>
+        <span class="tech-tag" role="listitem">ATAC-seq</span>
+        <span class="tech-tag" role="listitem">Python</span>
+        <span class="tech-tag" role="listitem">R</span>
+        <span class="tech-tag" role="listitem">Biopython</span>
+        <span class="tech-tag" role="listitem">Bioconductor</span>
+        <span class="tech-tag" role="listitem">Tensor Flow</span>
+        <span class="tech-tag" role="listitem">NCBI</span>
+        <span class="tech-tag" role="listitem">Ensembl</span>
+        <span class="tech-tag" role="listitem">UniProt</span>
+        <span class="tech-tag" role="listitem">PDB</span>
+        <span class="tech-tag" role="listitem">KEGG</span>
+        <span class="tech-tag" role="listitem">BEAST</span>
+        <span class="tech-tag" role="listitem">QIIME</span>
+        <span class="tech-tag" role="listitem">Galaxy</span>
+        <span class="tech-tag" role="listitem">MEGA</span>
+        <span class="tech-tag" role="listitem">DESeq2</span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════
+       RESEARCH
+  ══════════════════════════════════════════════ -->
+  <section id="research" aria-label="Líneas de investigación y publicaciones">
+    <div class="research-bg-glow" aria-hidden="true"></div>
+    <div class="container" style="position:relative;z-index:1">
+
+      <div class="sec-lbl"><span> 03 / Investigación</span></div>
+      <h2 class="sec-title">Líneas de <span class="accent">Investigación</span></h2>
+      <p class="sec-desc">
+        Trabajo en la secuenciación de novo de nueva generación de genomas virales, sinergia en análisis de microbiomas, ingeniería genética en
+        edición de genomas bacterianos para biorremediación y síntesis de metabolitos de interés. Implementación de machine learning en datos clínicos. 
+      </p>
+
+      <!-- Research areas -->
+      <div class="research-areas">
+        <div class="glass research-area fade-up">
+          <div class="research-area-icon" aria-hidden="true">🧬</div>
+          <div class="research-area-title" style="color:#00ffcc">Secuenciación MinION</div>
+          <p class="research-area-desc">Diseño experimental para generar secuenciación de novo utilizando tecnologías de secuenciación de tercera generación.</p>
+        </div>
+        <div class="glass research-area fade-up" style="transition-delay:.08s">
+          <div class="research-area-icon" aria-hidden="true">🔬</div>
+          <div class="research-area-title" style="color:#0088ff">Genómica Microbiana</div>
+          <p class="research-area-desc">Análisis integrado de datos ómicos para identificar genes funcionales y redes dei interacción en microbiomas.</p>
+        </div>
+        <div class="glass research-area fade-up" style="transition-delay:.16s">
+          <div class="research-area-icon" aria-hidden="true">💻</div>
+          <div class="research-area-title" style="color:#ff00aa">Bioinformática Estructural</div>
+          <p class="research-area-desc"> Análisis de secuenciación, variantes genéticas, análisis filogenéticos, expresión diferencial de genes y automatización de pipelines bioinformáticos.</p>
+        </div>
+        <div class="glass research-area fade-up" style="transition-delay:.24s">
+          <div class="research-area-icon" aria-hidden="true">🌱</div>
+          <div class="research-area-title" style="color:#725b04">Biotecnología Dorada</div>
+          <p class="research-area-desc">Desarrollo de circuitos genéticos in silico para su uso en wetlab. </p>
+        </div>
+      </div>
+
+      <!-- Publications -->
+      <h3 class="pubs-heading">Publicaciones Seleccionadas</h3>
+      <div class="pub-list">
+
+        <article class="glass pub-card fade-up" style="border-color:rgba(0,255,204,.28)">
+          <div class="pub-card-inner">
+            <div>
+              <div class="pub-tags">
+                <span class="pub-tag" style="background:rgba(0,255,204,.12);color:#00ffcc;border-color:rgba(0,255,204,.3)">⭐ Destacada</span>
+                <span class="pub-tag">MinION</span>
+                <span class="pub-tag">Virus Hepatitis C</span>
+                <span class="pub-tag">Secuenciación</span>
+              </div>
+              <h4 class="pub-title">First complete Hepatitis C Virus genome in México </h4>
+              <div class="pub-meta">
+                <span style="color:#00ffcc;font-weight:600">NCBI</span>
+                <span>📅 2022</span>
+                <span>47 citas</span>
+              </div>
+            </div>
+            <a href="https://www.ncbi.nlm.nih.gov/nuccore/ON676559" class="pub-doi" style="background:rgba(0,255,204,.1);border:1px solid rgba(0,255,204,.28);color:#00ffcc" aria-label="Ver DOI de publicación en Nature Communications">↗ Ver DOI</a>
+          </div>
+        </article>
+<!--- 
+        <article class="glass pub-card fade-up" style="transition-delay:.08s">
+          <div class="pub-card-inner">
+            <div>
+              <div class="pub-tags">
+                <span class="pub-tag">RNA-seq</span>
+                <span class="pub-tag">Bioinformática</span>
+                <span class="pub-tag">Plantas</span>
+              </div>
+              <h4 class="pub-title">Transcriptomic analysis of drought stress response in Arabidopsis thaliana using RNA-seq and weighted gene co-expression networks</h4>
+              <div class="pub-meta">
+                <span style="color:#0088ff;font-weight:600">Plant Cell &amp; Environment</span>
+                <span>📅 2022</span>
+                <span>31 citas</span>
+              </div>
+            </div>
+            <a href="#" class="pub-doi" style="background:rgba(0,136,255,.1);border:1px solid rgba(0,136,255,.28);color:#0088ff">↗ Ver DOI</a>
+          </div>
+        </article>
+
+        <article class="glass pub-card fade-up" style="transition-delay:.16s">
+          <div class="pub-card-inner">
+            <div>
+              <div class="pub-tags">
+                <span class="pub-tag">Terapia Génica</span>
+                <span class="pub-tag">Vectores Virales</span>
+                <span class="pub-tag">Células Madre</span>
+              </div>
+              <h4 class="pub-title">Development of a lentiviral vector system for stable transgene expression in hematopoietic stem cells</h4>
+              <div class="pub-meta">
+                <span style="color:#ff00aa;font-weight:600">Molecular Therapy</span>
+                <span>📅 2022</span>
+                <span>28 citas</span>
+              </div>
+            </div>
+            <a href="#" class="pub-doi" style="background:rgba(255,0,170,.1);border:1px solid rgba(255,0,170,.28);color:#ff00aa">↗ Ver DOI</a>
+          </div>
+        </article>
+
+        <article class="glass pub-card fade-up" style="transition-delay:.24s">
+          <div class="pub-card-inner">
+            <div>
+              <div class="pub-tags">
+                <span class="pub-tag">Bioestadística</span>
+                <span class="pub-tag">Genómica Comparativa</span>
+                <span class="pub-tag">Patógenos</span>
+              </div>
+              <h4 class="pub-title">Bayesian statistical framework for comparative genomics: identifying selection signatures in pathogen populations</h4>
+              <div class="pub-meta">
+                <span style="color:#00e5ff;font-weight:600">Bioinformatics</span>
+                <span>📅 2021</span>
+                <span>52 citas</span>
+              </div>
+            </div>
+            <a href="#" class="pub-doi" style="background:rgba(0,229,255,.1);border:1px solid rgba(0,229,255,.28);color:#00e5ff">↗ Ver DOI</a>
+          </div>
+        </article>
+-->
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════
+       PROJECTS
+  ══════════════════════════════════════════════ -->
+  <section id="projects" aria-label="Proyectos destacados">
+    <div class="projects-bg-img" aria-hidden="true"></div>
+    <div class="container" style="position:relative;z-index:1">
+
+      <div class="sec-lbl"><span>04 / Proyectos</span></div>
+      <h2 class="sec-title">Proyectos <span class="accent">Destacados</span></h2>
+      <p class="sec-desc">
+        EN CONSTRUCCIÓN...
+      </p>
+ 
+      <!-- Cards injected by scripts.js -->
+      <div id="projects-grid" class="projects-grid" role="list"></div>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════
+       CONTACT
+  ══════════════════════════════════════════════ -->
+  <section id="contact" aria-label="Contacto">
+    <div class="contact-glow" aria-hidden="true"></div>
+    <div class="container" style="position:relative;z-index:1">
+
+      <div class="sec-lbl"><span>05 / Contacto</span></div>
+      <h2 class="sec-title">Hablemos de <span class="accent">Ciencia</span></h2>
+      <p class="sec-desc">
+        ¿Tienes un proyecto de investigación, colaboración académica o propuesta
+        biotecnológica? Me encantaría escucharte.
+      </p>
+
+      <div class="contact-grid">
+
+        <!-- Contact info -->
+        <div class="fade-left">
+          <div class="contact-links">
+            <a href="mailto:v.montoya@biolab.mx" class="glass contact-link" style="border-color:rgba(0,255,204,.15)">
+              <div class="contact-link-icon" style="background:rgba(0,255,204,.12);border:1px solid rgba(0,255,204,.25)" aria-hidden="true">✉️</div>
+              <div><div class="contact-link-label">Email</div><div class="contact-link-value">lopezriojask@gmail.com</div></div>
+            </a>
+            <a href="https://www.linkedin.com/in/karen-lopez-riojas-640643110/" class="glass contact-link" style="border-color:rgba(0,136,255,.15)" target="_blank" rel="noopener">
+              <div class="contact-link-icon" style="background:rgba(0,136,255,.12);border:1px solid rgba(0,136,255,.25)" aria-hidden="true">💼</div>
+              <div><div class="contact-link-label">LinkedIn</div><div class="contact-link-value">linkedin.com/in/karen-lopez-riojas-640643110/</div></div>
+            </a>
+            <a href="https://github.com/kalori94" class="glass contact-link" style="border-color:rgba(167,139,250,.15)" target="_blank" rel="noopener">
+              <div class="contact-link-icon" style="background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.25)" aria-hidden="true">🐱</div>
+              <div><div class="contact-link-label">GitHub</div><div class="contact-link-value">github.com/kalori94</div></div>
+            </a>
+
+          </div>
+          <div class="contact-location">
+            <span aria-hidden="true" style="color:#00ffcc">📍</span>
+            Ciudad de México, México · Disponible para trabajo remoto
+          </div>
+        </div>
+
+        <!-- Contact form -->
+        <div class="fade-right">
+          <form id="contact-form" class="contact-form" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="form-name">Nombre</label>
+                <input id="form-name" class="form-input" type="text" placeholder="Tu nombre" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="form-email">Email</label>
+                <input id="form-email" class="form-input" type="email" placeholder="tu@email.com" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="form-subject">Asunto</label>
+              <input id="form-subject" class="form-input" type="text" placeholder="Propuesta de colaboración..." required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="form-message">Mensaje</label>
+              <textarea id="form-message" class="form-textarea" rows="5" placeholder="Cuéntame sobre tu proyecto o idea..." required></textarea>
+            </div>
+            <button type="submit" class="btn-primary" style="width:100%">
+              <span id="submit-btn-text">✉ Enviar Mensaje</span>
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════════ -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <div class="footer-icon" aria-hidden="true">🧬</div>
+          <span class="footer-name">MSc. Karen López Riojas</span>
+        </div>
+        <p class="footer-copy">© 2026 · Biotecnóloga · Biología Molecular · Ingeniería Genética</p>
+        <p class="footer-dna" aria-hidden="true">5'—ATCG—3'</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast de confirmación de formulario -->
+  <div id="toast" class="toast" role="status" aria-live="polite">
+    ✅ Mensaje enviado correctamente. Te responderé pronto.
+  </div>
+
+  <!-- Scripts (al final del body para máximo rendimiento) -->
+  <script src="scripts.js"></script>
+
+</body>
+</html>
