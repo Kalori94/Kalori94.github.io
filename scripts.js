@@ -88,197 +88,97 @@
 })();
 
 
-/* ── 3. DNA CANVAS — interactive bioluminescent helices ──── */
-(function initDnaCanvas() {
-  const canvas = document.getElementById("dna-canvas");
-  if (!canvas) return;
-  const ctx = canvas.getContext("2d");
+/* ── 3. DNA HELIX 3D — rotating double helix + mouse parallax ── */
+(function initDnaHelix3D() {
+  const viewport = document.getElementById("dna-helix-viewport");
+  const tilt     = document.getElementById("dna-helix-tilt");
+  const spin     = document.getElementById("dna-helix-spin");
+  if (!viewport || !tilt || !spin) return;
 
-  const COLORS = [
-    { stroke: "#00ffcc", glow: "rgba(0,255,204,0.6)" },
-    { stroke: "#ff00aa", glow: "rgba(255,0,170,0.6)"  },
-    { stroke: "#0088ff", glow: "rgba(0,136,255,0.6)"  },
-    { stroke: "#00e5ff", glow: "rgba(0,229,255,0.5)"  },
+  const PAIRS = [
+    { left: "A", right: "T", color: "#fb923c" }, // --or amber
+    { left: "C", right: "G", color: "#ff00aa" }, // --mg rose
+    { left: "T", right: "A", color: "#fb923c" },
+    { left: "G", right: "C", color: "#ff00aa" },
   ];
-  let helices = [], idCounter = 0, animFrame;
+  const TEAL = "#00ffcc"; // --cy
+  const BLUE = "#0088ff"; // --bl
 
-  /* Resize canvas to fill parent */
-  function resize() {
-    const parent = canvas.parentElement;
-    canvas.width  = parent ? parent.clientWidth  : window.innerWidth;
-    canvas.height = parent ? parent.clientHeight : window.innerHeight;
+  const N_RUNGS = 28;
+  const GAP = 24;
+  const RADIUS = 130;
+  const TWIST_TOTAL = 780;
+
+  const totalHeight = N_RUNGS * GAP;
+  const twistStep = TWIST_TOTAL / N_RUNGS;
+  const frag = document.createDocumentFragment();
+
+  for (let i = 0; i < N_RUNGS; i++) {
+    const pair = PAIRS[i % PAIRS.length];
+    const y = i * GAP - totalHeight / 2;
+    const twist = i * twistStep;
+    const depthFade = 0.4 + 0.6 * Math.abs(Math.cos((twist * Math.PI) / 180));
+
+    const rung = document.createElement("div");
+    rung.className = "dna-rung";
+    rung.style.transform = `translateY(${y}px) rotateY(${twist}deg)`;
+
+    const bar = document.createElement("div");
+    bar.className = "dna-rung-bar";
+    bar.style.left = `${-RADIUS}px`;
+    bar.style.width = `${RADIUS * 2}px`;
+    bar.style.background = pair.color;
+    bar.style.opacity = depthFade;
+    bar.style.boxShadow = `0 0 8px ${pair.color}`;
+
+    const nodeL = document.createElement("div");
+    nodeL.className = "dna-rung-node";
+    nodeL.style.left = `${-RADIUS - 6}px`;
+    nodeL.style.background = TEAL;
+    nodeL.style.boxShadow = `0 0 10px ${TEAL}`;
+    nodeL.style.opacity = depthFade;
+
+    const nodeR = document.createElement("div");
+    nodeR.className = "dna-rung-node";
+    nodeR.style.left = `${RADIUS - 6}px`;
+    nodeR.style.background = BLUE;
+    nodeR.style.boxShadow = `0 0 10px ${BLUE}`;
+    nodeR.style.opacity = depthFade;
+
+    const labelL = document.createElement("div");
+    labelL.className = "dna-rung-label";
+    labelL.textContent = pair.left;
+    labelL.style.left = `${-RADIUS - 34}px`;
+    labelL.style.textAlign = "right";
+    labelL.style.color = TEAL;
+    labelL.style.opacity = depthFade;
+
+    const labelR = document.createElement("div");
+    labelR.className = "dna-rung-label";
+    labelR.textContent = pair.right;
+    labelR.style.left = `${RADIUS + 14}px`;
+    labelR.style.textAlign = "left";
+    labelR.style.color = BLUE;
+    labelR.style.opacity = depthFade;
+
+    rung.append(bar, nodeL, nodeR, labelL, labelR);
+    frag.appendChild(rung);
   }
-  resize();
-  window.addEventListener("resize", resize, { passive: true });
+  spin.appendChild(frag);
 
-  /* Helix factory helpers */
-  function makeFollower(mx, my, index) {
-    const c = COLORS[index % COLORS.length];
-    const angle  = (index / 6) * Math.PI * 2;
-    const radius = 40 + index * 18;
-    return {
-      id: idCounter++, x: mx + Math.cos(angle) * radius, y: my + Math.sin(angle) * radius,
-      vx: 0, vy: 0, targetX: mx, targetY: my,
-      size: 18 + Math.random() * 10, rotation: Math.random() * Math.PI * 2,
-      rotSpeed: (Math.random() - 0.5) * 0.04, color: c.stroke, glow: c.glow,
-      alpha: 0, alphaTarget: 0.85, alphaSpeed: 0.04,
-      follower: true, life: Infinity, maxLife: Infinity,
-      phase: Math.random() * Math.PI * 2, scale: 0.3, scaleTarget: 1,
-    };
-  }
-
-  function makeSpawn(x, y) {
-    const c     = COLORS[Math.floor(Math.random() * COLORS.length)];
-    const angle = Math.random() * Math.PI * 2;
-    const speed = 1.5 + Math.random() * 2.5;
-    const life  = 120 + Math.random() * 80;
-    return {
-      id: idCounter++, x, y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed,
-      targetX: x, targetY: y,
-      size: 12 + Math.random() * 16, rotation: Math.random() * Math.PI * 2,
-      rotSpeed: (Math.random() - 0.5) * 0.06, color: c.stroke, glow: c.glow,
-      alpha: 0, alphaTarget: 0.9, alphaSpeed: 0.06,
-      follower: false, life, maxLife: life,
-      phase: Math.random() * Math.PI * 2, scale: 0.1, scaleTarget: 1,
-    };
-  }
-
-  /* Draw a single double-helix */
-  function drawHelix(x, y, size, rotation, color, glow, alpha, phase, scale) {
-    if (alpha <= 0.01) return;
-    ctx.save();
-    ctx.translate(x, y);
-    ctx.rotate(rotation);
-    ctx.scale(scale, scale);
-    ctx.globalAlpha = alpha;
-
-    const h = size * 3, w = size * 0.8, steps = 16, stepH = h / steps;
-
-    ctx.shadowColor = glow;
-    ctx.shadowBlur  = 18;
-
-    /* Two DNA strands */
-    for (let strand = 0; strand < 2; strand++) {
-      const phaseOff = strand === 0 ? phase : phase + Math.PI;
-      ctx.beginPath();
-      ctx.strokeStyle = color;
-      ctx.lineWidth   = 2;
-      for (let i = 0; i <= steps; i++) {
-        const t  = i / steps;
-        const py = -h / 2 + i * stepH;
-        const px = Math.sin(t * Math.PI * 2 + phaseOff) * w;
-        i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
-      }
-      ctx.stroke();
-    }
-
-    /* Base-pair rungs + nucleotide dots */
-    ctx.shadowBlur = 8;
-    for (let i = 1; i < steps; i++) {
-      const t   = i / steps;
-      const py  = -h / 2 + i * stepH;
-      const px1 = Math.sin(t * Math.PI * 2 + phase) * w;
-      const px2 = Math.sin(t * Math.PI * 2 + phase + Math.PI) * w;
-
-      ctx.beginPath();
-      ctx.strokeStyle  = color;
-      ctx.lineWidth    = 1;
-      ctx.globalAlpha  = alpha * 0.55;
-      ctx.moveTo(px1, py);
-      ctx.lineTo(px2, py);
-      ctx.stroke();
-      ctx.globalAlpha = alpha;
-
-      [px1, px2].forEach((px) => {
-        ctx.beginPath();
-        ctx.fillStyle   = color;
-        ctx.shadowBlur  = 10;
-        ctx.arc(px, py, 2, 0, Math.PI * 2);
-        ctx.fill();
-      });
-    }
-    ctx.restore();
-  }
-
-  /* Spawn follower helices around mouse */
-  function spawnFollowers(mx, my) {
-    helices = helices.filter((h) => !h.follower);
-    for (let i = 0; i < 6; i++) helices.push(makeFollower(mx, my, i));
-  }
-
-  /* Mouse events */
-  canvas.addEventListener("mousemove", (e) => {
-    const rect = canvas.getBoundingClientRect();
-    const mx = e.clientX - rect.left;
-    const my = e.clientY - rect.top;
-    if (!helices.some((h) => h.follower)) spawnFollowers(mx, my);
-    helices.forEach((h) => { if (h.follower) { h.targetX = mx; h.targetY = my; } });
+  /* Mouse parallax tilt — tracked on the whole hero so it works even
+     though the helix layer itself is pointer-events:none */
+  const hero = document.getElementById("hero");
+  const moveTarget = hero || viewport;
+  moveTarget.addEventListener("mousemove", (e) => {
+    const rect = moveTarget.getBoundingClientRect();
+    const nx = (e.clientX - rect.left) / rect.width - 0.5;
+    const ny = (e.clientY - rect.top) / rect.height - 0.5;
+    tilt.style.transform =
+      `translate(-50%, -50%) rotateX(${(ny * -8).toFixed(2)}deg) rotateY(${(nx * 16).toFixed(2)}deg)`;
   });
-
-  canvas.addEventListener("click", (e) => {
-    const rect  = canvas.getBoundingClientRect();
-    const count = 5 + Math.floor(Math.random() * 4);
-    for (let i = 0; i < count; i++) {
-      helices.push(makeSpawn(e.clientX - rect.left, e.clientY - rect.top));
-    }
-  });
-
-  /* Ambient background helices */
-  const ambientInterval = setInterval(() => {
-    if (helices.filter((h) => !h.follower).length < 8) {
-      const h = makeSpawn(Math.random() * canvas.width, Math.random() * canvas.height);
-      h.vx = (Math.random() - 0.5) * 0.5;
-      h.vy = (Math.random() - 0.5) * 0.5;
-      h.life = 300 + Math.random() * 200;
-      h.maxLife = h.life;
-      h.alphaTarget = 0.25 + Math.random() * 0.3;
-      helices.push(h);
-    }
-  }, 900);
-
-  /* Animation loop */
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    helices = helices.filter((h) => {
-      /* Lifespan */
-      if (!h.follower) {
-        h.life--;
-        if (h.life <= 0) return false;
-        if (h.life < 40) h.alphaTarget = (h.life / 40) * (h.maxLife > 200 ? 0.3 : 0.9);
-      }
-
-      /* Smooth alpha & scale */
-      h.alpha += (h.alphaTarget - h.alpha) * h.alphaSpeed;
-      h.scale += (h.scaleTarget - h.scale) * 0.08;
-
-      /* Movement */
-      if (h.follower) {
-        h.x += (h.targetX - h.x) * 0.07;
-        h.y += (h.targetY - h.y) * 0.07;
-      } else {
-        h.x  += h.vx;
-        h.y  += h.vy;
-        h.vx *= 0.99;
-        h.vy *= 0.99;
-      }
-
-      h.rotation += h.rotSpeed;
-      h.phase    += 0.028;
-
-      drawHelix(h.x, h.y, h.size, h.rotation, h.color, h.glow,
-                Math.max(0, Math.min(1, h.alpha)), h.phase, h.scale);
-      return true;
-    });
-
-    animFrame = requestAnimationFrame(animate);
-  }
-  animate();
-
-  /* Cleanup on page unload */
-  window.addEventListener("unload", () => {
-    cancelAnimationFrame(animFrame);
-    clearInterval(ambientInterval);
+  moveTarget.addEventListener("mouseleave", () => {
+    tilt.style.transform = "translate(-50%, -50%)";
   });
 })();
 

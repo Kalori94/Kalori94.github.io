@@ -12,6 +12,20 @@
 
   <!-- Estilos -->
   <link rel="stylesheet" href="styles.css" />
+
+  <template id="__bundler_thumbnail">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+      <rect width="100" height="100" fill="#050a0f"/>
+      <text x="50" y="58" font-size="34" text-anchor="middle" fill="#00ffcc" font-family="sans-serif">🧬</text>
+    </svg>
+  </template>
+
+  <template id="__bundler_thumbnail">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+      <rect width="100" height="100" fill="#050a0f"/>
+      <text x="50" y="58" font-size="34" text-anchor="middle" fill="#00ffcc" font-family="sans-serif">🧬</text>
+    </svg>
+  </template>
 </head>
 <body>
 
@@ -67,11 +81,14 @@
   ══════════════════════════════════════════════ -->
   <section id="hero" aria-label="Presentación">
     <!-- Fondo decorativo -->
-    <div class="hero-bg-img" aria-hidden="true"></div>
     <div class="hero-glow-overlay" aria-hidden="true"></div>
 
-    <!-- Canvas interactivo de ADN (mouse + clic) -->
-    <canvas id="dna-canvas" aria-hidden="true" title="Animación de doble hélice de ADN interactiva"></canvas>
+    <!-- Doble hélice de ADN 3D rotativa con parallax de mouse -->
+    <div id="dna-helix-viewport" class="dna-helix-viewport" aria-hidden="true" title="Animación de doble hélice de ADN rotativa">
+      <div id="dna-helix-tilt" class="dna-helix-tilt">
+        <div id="dna-helix-spin" class="dna-helix-spin"></div>
+      </div>
+    </div>
 
     <!-- Contenido -->
     <div class="hero-content container">
@@ -428,9 +445,9 @@
         <!-- Contact info -->
         <div class="fade-left">
           <div class="contact-links">
-            <a href="mailto:v.montoya@biolab.mx" class="glass contact-link" style="border-color:rgba(0,255,204,.15)">
+            <a href="/cdn-cgi/l/email-protection#780e561517160c170119381a111714191a561500" class="glass contact-link" style="border-color:rgba(0,255,204,.15)">
               <div class="contact-link-icon" style="background:rgba(0,255,204,.12);border:1px solid rgba(0,255,204,.25)" aria-hidden="true">✉️</div>
-              <div><div class="contact-link-label">Email</div><div class="contact-link-value">lopezriojask@gmail.com</div></div>
+              <div><div class="contact-link-label">Email</div><div class="contact-link-value"><span class="__cf_email__" data-cfemail="197576697c636b707673786a72597e74787075377a7674">[email&#160;protected]</span></div></div>
             </a>
             <a href="https://www.linkedin.com/in/karen-lopez-riojas-640643110/" class="glass contact-link" style="border-color:rgba(0,136,255,.15)" target="_blank" rel="noopener">
               <div class="contact-link-icon" style="background:rgba(0,136,255,.12);border:1px solid rgba(0,136,255,.25)" aria-hidden="true">💼</div>
@@ -502,7 +519,7 @@
   </div>
 
   <!-- Scripts (al final del body para máximo rendimiento) -->
-  <script src="scripts.js"></script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="scripts.js"></script>
 
 </body>
 </html>
