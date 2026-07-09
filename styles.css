@@ -631,14 +631,59 @@ button { border: none; background: none; font-family: inherit; cursor: pointer; 
   background: linear-gradient(180deg, var(--nv) 0%, var(--dk) 100%);
   overflow: hidden;
 }
-.skills-bg-img {
+.skills-bg-fx {
   position: absolute;
   inset: 0;
-  background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1400&q=40');
-  background-size: cover;
-  background-position: center;
-  opacity: 0.05;
   pointer-events: none;
+  overflow: hidden;
+}
+.skills-bg-fx::before {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  background-image:
+    repeating-linear-gradient(120deg, rgba(0,255,204,0.07) 0px, rgba(0,255,204,0.07) 1px, transparent 1px, transparent 46px),
+    repeating-linear-gradient(60deg, rgba(0,255,204,0.07) 0px, rgba(0,255,204,0.07) 1px, transparent 1px, transparent 46px),
+    repeating-linear-gradient(0deg, rgba(0,136,255,0.05) 0px, rgba(0,136,255,0.05) 1px, transparent 1px, transparent 46px);
+  mask-image: radial-gradient(ellipse 70% 65% at 50% 40%, black 0%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 65% at 50% 40%, black 0%, transparent 75%);
+}
+.skills-glow-a {
+  position: absolute;
+  top: -10%;
+  left: -8%;
+  width: 26rem;
+  height: 26rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,255,204,0.16), transparent 70%);
+  filter: blur(10px);
+}
+.skills-glow-b {
+  position: absolute;
+  bottom: -12%;
+  right: -6%;
+  width: 22rem;
+  height: 22rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(167,139,250,0.14), transparent 70%);
+  filter: blur(10px);
+}
+.skills-strand {
+  position: absolute;
+  right: 4%;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background: repeating-linear-gradient(
+    180deg,
+    #00ffcc 0px, #00ffcc 10px,
+    transparent 10px, transparent 30px,
+    #0088ff 30px, #0088ff 40px,
+    transparent 40px, transparent 60px
+  );
+  opacity: 0.35;
+  mask-image: linear-gradient(180deg, transparent 0%, black 15%, black 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, black 15%, black 85%, transparent 100%);
 }
 
 .skills-grid {
